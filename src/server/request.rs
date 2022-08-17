@@ -782,6 +782,19 @@ impl Request {
                 if l != c.data.len() {
                     Err(Error::ErrShortWrite)
                 } else {
+                    a.transmitted_bytes.store(
+                        a.transmitted_bytes
+                            .load(std::sync::atomic::Ordering::Relaxed)
+                            + c.raw.len(),
+                        std::sync::atomic::Ordering::Relaxed,
+                    );
+
+                    log::error!(
+                        "Bytes: {}",
+                        a.transmitted_bytes
+                            .load(std::sync::atomic::Ordering::Relaxed)
+                    );
+
                     Ok(())
                 }
             } else {

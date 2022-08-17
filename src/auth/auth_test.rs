@@ -65,6 +65,7 @@ async fn test_new_long_term_auth_handler() -> Result<()> {
                 address: "0.0.0.0".to_owned(),
                 net: Arc::new(Net::new(None)),
             }),
+            gather_metrics: true,
         }],
         realm: "webrtc.rs".to_owned(),
         auth_handler: Arc::new(LongTermAuthHandler::new(SHARED_SECRET.to_string())),
